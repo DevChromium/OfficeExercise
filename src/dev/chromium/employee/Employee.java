@@ -5,7 +5,9 @@ import dev.chromium.enums.Action;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public abstract class Employee implements Comparable<Employee> {
 
@@ -15,14 +17,15 @@ public abstract class Employee implements Comparable<Employee> {
     private double hourlyWage;
     private double salary;
     private ArrayList<Action> actions;
-    private ArrayList<String> skills;
+    private Set<Action> skills;
 
-    protected Employee(int id, String naam, double uurloon) {
+    protected Employee(int id, String naam, double hourlyWage, Set<Action> skills) {
         this.id = id;
         this.name = naam;
-        this.hourlyWage = uurloon;
+        this.hourlyWage = hourlyWage;
         this.salary = 0;
         this.actions = new ArrayList<>();
+        this.skills = skills;
     }
 
     public int getId() {
@@ -41,7 +44,7 @@ public abstract class Employee implements Comparable<Employee> {
         return salary;
     }
 
-    public ArrayList<Action> getActions() {
+    public List<Action> getActions() {
         return actions;
     }
 
@@ -56,21 +59,12 @@ public abstract class Employee implements Comparable<Employee> {
         return actions;
     }
 
-    protected boolean canExecuteAction(String job, Action action) {
-        boolean canExecute = false;
-        if (action.getJob().equalsIgnoreCase(job)) {
-            canExecute = true;
+    public void executeAction(Action action) {
+        if (skills.contains(action)) {
+            System.out.println(this.getName() + " has executed the action " + action.getFriendlyName() + ".");
+            actions.add(action);
         } else System.out.println("The employee " + this.getName() + " cannot execute " + action.getFriendlyName() + ".");
-
-        return canExecute;
-    }
-
-    public abstract void executeAction(Action action);
-
-    protected void addAction(Action action) {
-        actions.add(action);
-    }
-
+    };
     public void calculateSalary() {
         double extra = 0.00;
         for (Action action : actions) {
