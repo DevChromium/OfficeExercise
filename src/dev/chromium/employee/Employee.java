@@ -1,9 +1,11 @@
 package dev.chromium.employee;
 
 import dev.chromium.enums.Action;
-import dev.chromium.exceptions.CannotExecuteException;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.Locale;
 
 public abstract class Employee implements Comparable<Employee> {
 
@@ -13,8 +15,9 @@ public abstract class Employee implements Comparable<Employee> {
     private double hourlyWage;
     private double salary;
     private ArrayList<Action> actions;
+    private ArrayList<String> skills;
 
-    public Employee(int id, String naam, double uurloon) {
+    protected Employee(int id, String naam, double uurloon) {
         this.id = id;
         this.name = naam;
         this.hourlyWage = uurloon;
@@ -53,42 +56,38 @@ public abstract class Employee implements Comparable<Employee> {
         return actions;
     }
 
-    protected boolean canExecuteAction(String job, Action action) throws CannotExecuteException {
+    protected boolean canExecuteAction(String job, Action action) {
         boolean canExecute = false;
         if (action.getJob().equalsIgnoreCase(job)) {
             canExecute = true;
-        } else throw new CannotExecuteException(this, action);
+        } else System.out.println("The employee " + this.getName() + " cannot execute " + action.getFriendlyName() + ".");
 
         return canExecute;
     }
 
-    public abstract void executeAction(Action action) throws CannotExecuteException;
+    public abstract void executeAction(Action action);
 
     protected void addAction(Action action) {
         actions.add(action);
     }
 
-    public double calculateSalary() {
-        double bonus = 0.00;
+    public void calculateSalary() {
+        double extra = 0.00;
         for (Action action : actions) {
-            bonus += action.getBonus();
+            extra += action.getBonus();
         }
-        salary = (hourlyWage * NUMBER_OF_HOURS_WORKING) + bonus;
-        return salary;
+        salary = (hourlyWage * NUMBER_OF_HOURS_WORKING) + extra;
     }
 
     public abstract String getJob();
 
+    public void print(Formatter formatter) {
+        NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        formatter.format("%-3s %-25s %-20s %-15s %-15s %-15s%n", this.getId(), this.getName(), this.getJob(), usdFormat.format(this.getHourlyWage()), usdFormat.format(this.getSalary()), this.getFormattedActions());
+    }
+
     @Override
     public int compareTo(Employee employee) {
-        int comparable = 0;
-        if (this.getSalary() > employee.getSalary()) {
-            comparable = -1;
-        } else if (this.getSalary() < employee.getSalary()) {
-            comparable = 1;
-        } else if (this.getSalary() == employee.getSalary()) {
-            comparable = 0;
-        }
-        return comparable;
+        return (int) Math.floor(employee.getSalary() - this.getSalary());
     }
 }
