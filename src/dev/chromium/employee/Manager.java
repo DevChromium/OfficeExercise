@@ -24,9 +24,4 @@ public class Manager extends Employee {
     public String getJob() {
         return JOB;
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + "\t⌁ job: Manager \n}";
-    }
 }

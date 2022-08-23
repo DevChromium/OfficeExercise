@@ -3,8 +3,6 @@ package dev.chromium.employee;
 import dev.chromium.enums.Action;
 import dev.chromium.exceptions.CannotExecuteException;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public abstract class Employee implements Comparable<Employee> {
@@ -46,8 +44,10 @@ public abstract class Employee implements Comparable<Employee> {
 
     public String getFormattedActions() {
         String actions = "";
-        if(this.actions.isEmpty()) { actions += "No actions performed"; }
-        for (Action action: this.actions) {
+        if (this.actions.isEmpty()) {
+            actions += "No actions performed";
+        }
+        for (Action action : this.actions) {
             actions += action.getFriendlyName() + ", ";
         }
         return actions;
@@ -90,17 +90,5 @@ public abstract class Employee implements Comparable<Employee> {
             comparable = 0;
         }
         return comparable;
-    }
-
-    @Override
-    public String toString() {
-        NumberFormat formatter = new DecimalFormat("0.00");
-
-        return "Employee { \n" +
-                "\t⌁ id: " + id + "\n" +
-                "\t⌁ name: '" + name + "'\n" +
-                "\t⌁ hourlyWage: $" + formatter.format(hourlyWage) + "\n" +
-                "\t⌁ salary: $" + formatter.format(salary) + "\n" +
-                "\t⌁ actions: $" + actions + "\n";
     }
 }

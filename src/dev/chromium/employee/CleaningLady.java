@@ -23,9 +23,4 @@ public class CleaningLady extends Employee {
     public String getJob() {
         return JOB;
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + "\t⌁ type: Cleaning Lady \n}";
-    }
 }
