@@ -22,7 +22,7 @@ public class Manager extends Employee {
     }
 
     @Override
-    public Set<Action> getSKills() {
+    public Set<Action> getSkills() {
         return skills;
     }
 }

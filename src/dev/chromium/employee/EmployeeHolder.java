@@ -1,8 +1,6 @@
 package dev.chromium.employee;
 
-import java.util.ArrayList;
-import java.util.Formatter;
-import java.util.List;
+import java.util.*;
 
 public class EmployeeHolder {
 
@@ -38,5 +36,9 @@ public class EmployeeHolder {
             employee.print(fmt);
         }
         System.out.println(fmt);
+    }
+
+    public void sort() {
+        Collections.sort(employees);
     }
 }

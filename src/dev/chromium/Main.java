@@ -33,7 +33,7 @@ public class Main {
             employee.calculateSalary();
         }
 
-        Collections.sort(employees.get());
+        employees.sort();
         employees.print();
 
     }

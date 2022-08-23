@@ -59,7 +59,7 @@ public abstract class Employee implements Comparable<Employee> {
 
 
     public void executeAction(Action action) {
-        if (this.getSKills().contains(action)) {
+        if (this.getSkills().contains(action)) {
             System.out.println(this.getName() + " has executed the action " + action.getFriendlyName());
             actions.add(action);
         } else System.out.println("The employee " + this.getName() + " cannot execute " + action.getFriendlyName());
@@ -74,7 +74,7 @@ public abstract class Employee implements Comparable<Employee> {
 
     public abstract String getJob();
 
-    public abstract Set<Action> getSKills();
+    public abstract Set<Action> getSkills();
 
     public void print(Formatter formatter) {
         NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
