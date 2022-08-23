@@ -12,11 +12,16 @@ public class Janitor extends Employee {
     private static final Set<Action> skills = EnumSet.of(Action.CLEAN_FLOOR, Action.CHANGE_TOILET_PAPER);
 
     public Janitor(int id, String name) {
-        super(id, name, HOURLY_WAGE, skills);
+        super(id, name, HOURLY_WAGE);
     }
 
     @Override
     public String getJob() {
         return JOB;
+    }
+
+    @Override
+    public Set<Action> getSKills() {
+        return skills;
     }
 }

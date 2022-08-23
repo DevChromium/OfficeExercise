@@ -9,16 +9,16 @@ public enum Action {
     BUY_EQUIPMENT(6.90, "Buy Equipment"),
     PLAN_MEETING( 4.20, "Plan Meeting");
 
-    private double bonus;
-    private String friendlyName;
+    private final double extra;
+    private final String friendlyName;
 
-    Action(double bonus, String friendlyName) {
-        this.bonus = bonus;
+    Action(double extra, String friendlyName) {
+        this.extra = extra;
         this.friendlyName = friendlyName;
     }
 
     public double getBonus() {
-        return bonus;
+        return extra;
     }
 
     public String getFriendlyName() {

@@ -19,6 +19,7 @@ public class Main {
         employees.add(new Janitor(2, "Gail Mckay"));
         employees.add(new OfficeWorker(3, "Garfield Francis"));
         employees.add(new OfficeWorker(4, "Ben Hayes"));
+        employees.add(new OfficeWorker(5, "Eren Yeager"));
 
 
         employees.get(1).executeAction(Action.PLAN_MEETING);

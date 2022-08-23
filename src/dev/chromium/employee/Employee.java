@@ -12,20 +12,18 @@ import java.util.Set;
 public abstract class Employee implements Comparable<Employee> {
 
     private static final int NUMBER_OF_HOURS_WORKING = 36;
-    private int id;
-    private String name;
-    private double hourlyWage;
+    private final int id;
+    private final String name;
+    private final double hourlyWage;
     private double salary;
     private ArrayList<Action> actions;
-    private Set<Action> skills;
 
-    protected Employee(int id, String naam, double hourlyWage, Set<Action> skills) {
+    protected Employee(int id, String name, double hourlyWage) {
         this.id = id;
-        this.name = naam;
+        this.name = name;
         this.hourlyWage = hourlyWage;
         this.salary = 0;
         this.actions = new ArrayList<>();
-        this.skills = skills;
     }
 
     public int getId() {
@@ -49,22 +47,23 @@ public abstract class Employee implements Comparable<Employee> {
     }
 
     public String getFormattedActions() {
-        String actions = "";
+        StringBuilder formattedActions = new StringBuilder();
         if (this.actions.isEmpty()) {
-            actions += "No actions performed";
+            formattedActions.append("No actions performed");
         }
         for (Action action : this.actions) {
-            actions += action.getFriendlyName() + ", ";
+            formattedActions.append(action.getFriendlyName()).append(", ");
         }
-        return actions;
+        return formattedActions.toString();
     }
 
+
     public void executeAction(Action action) {
-        if (skills.contains(action)) {
-            System.out.println(this.getName() + " has executed the action " + action.getFriendlyName() + ".");
+        if (this.getSKills().contains(action)) {
+            System.out.println(this.getName() + " has executed the action " + action.getFriendlyName());
             actions.add(action);
-        } else System.out.println("The employee " + this.getName() + " cannot execute " + action.getFriendlyName() + ".");
-    };
+        } else System.out.println("The employee " + this.getName() + " cannot execute " + action.getFriendlyName());
+    }
     public void calculateSalary() {
         double extra = 0.00;
         for (Action action : actions) {
@@ -75,6 +74,8 @@ public abstract class Employee implements Comparable<Employee> {
 
     public abstract String getJob();
 
+    public abstract Set<Action> getSKills();
+
     public void print(Formatter formatter) {
         NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
         formatter.format("%-3s %-25s %-20s %-15s %-15s %-15s%n", this.getId(), this.getName(), this.getJob(), usdFormat.format(this.getHourlyWage()), usdFormat.format(this.getSalary()), this.getFormattedActions());
@@ -82,6 +83,8 @@ public abstract class Employee implements Comparable<Employee> {
 
     @Override
     public int compareTo(Employee employee) {
-        return (int) Math.floor(employee.getSalary() - this.getSalary());
+        if(employee.getSalary() < this.getSalary()) return -1;
+        if(employee.getSalary() > this.getSalary()) return 1;
+        return 0;
     }
 }

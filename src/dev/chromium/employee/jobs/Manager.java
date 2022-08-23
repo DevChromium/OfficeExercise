@@ -13,11 +13,16 @@ public class Manager extends Employee {
     private static final Set<Action> skills = EnumSet.of(Action.BUY_EQUIPMENT, Action.PLAN_MEETING);
 
     public Manager(int id, String name) {
-        super(id, name, HOURLY_WAGE, skills);
+        super(id, name, HOURLY_WAGE);
     }
 
     @Override
     public String getJob() {
         return JOB;
+    }
+
+    @Override
+    public Set<Action> getSKills() {
+        return skills;
     }
 }
